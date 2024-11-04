@@ -1,7 +1,9 @@
 # dayz-scripts
 Custom scripts for DayZ Standalone Server
 
-init.c - Server intialization script for Custom Mission in Server. Should be located under the mission folder.
+init.c - Server intialization sample script for Custom Mission in offline mod => https://github.com/Arkensor/DayZCommunityOfflineMode.
+
+init.namalsk.c - Server intialization sample for Namalsk server script for Custom Mission in Server. Should be located under the mission folder.
 
 start.bat - Server startup/control/restart script. Should be in the server root dir, same than the server executable.
 
@@ -19,6 +21,7 @@ If you found these scripts useful, please give a STAR and even FOLLOW the reposi
 - Player listing and stats/details
 - God mode / restore health
 - Admin list read in startup from text file
+- Admin FreeCamera (Need to be part of a server/client mod to work, otherwise nothing will apen when using /free command)
 
 # Getting started
 
@@ -31,9 +34,9 @@ Once installed, simply copy over the files contained in this repo:
   
   (e.g. C:\Program Files (x86)\Steam\steamapps\common\DayZServer\)
   
-  [init.c](init.c) into the Mission folder 
+  [init.namalsk.c](init.namalsk.c) into the Mission folder and rename it init.c
   
-  (e.g. C:\Program Files (x86)\Steam\steamapps\common\DayZServer\mpmissions\dayzOffline.chernarusplus\)
+  (e.g. C:\Program Files (x86)\Steam\steamapps\common\DayZServer\mpmissions\regular.namalsk\)
   
   You might need to override the existing init.c file (or keep it as backup and rename it as init.c.old)
 
@@ -48,6 +51,11 @@ Once finished, launch off the server by running [start.bat](start.bat). A Server
 Once the server is up and running, test your server by launching DayZ and connecting to your server using the server menu.
 
 Once you are in the game, you can issue chat commands by sending a chat message starting with '/' (e.g. '/help').
+
+# Create a mod for FreeCam
+If you want FreeCam to work, you will need a mod on your server
+From Folder [Mod/Scripts](Mod/Scripts) you can create your own server mod thanks to DayZTools
+(TODO: Publish a minimalist mod for FreeCamera, so admins will only need to add this mod)
 
 # Special mentions
 

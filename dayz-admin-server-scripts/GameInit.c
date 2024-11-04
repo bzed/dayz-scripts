@@ -3,7 +3,7 @@ class GameInit
 	void CreatePlayer()
 	{
 		PlayerBase player;
-		ItemBase item;
+		EntityAI item;
 	
 		// Create player
 		player = PlayerBase.Cast( GetGame().CreatePlayer(NULL, "SurvivorF_Linda", "2200 10 2200", 0, "NONE") );

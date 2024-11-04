@@ -10,7 +10,7 @@
     <file path="dayz-admin-server-scripts/PlayerHelpers.c" />
     <file path="dayz-admin-server-scripts/StringHelpers.c" />
     <file path="dayz-admin-server-scripts/CursorAction.c" />
-    <file path="dayz-admin-server-scripts/Car.c" />
+    <file path="dayz-admin-server-scripts/CarSpawner.c" />
     <file path="dayz-admin-server-scripts/GearSpawner.c" />
     <file path="dayz-admin-server-scripts/Teleporter.c" />
     <file path="init.namalsk.c" />

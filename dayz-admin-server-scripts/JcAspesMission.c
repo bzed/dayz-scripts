@@ -1,6 +1,6 @@
 class JcAspesMission: MissionServer //MissionServer
 {
-	AdminCommands adminCommands;
+	ref AdminCommands adminCommands;
 	override void OnInit()
 	{
 		super.OnInit();

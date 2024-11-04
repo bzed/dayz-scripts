@@ -2,7 +2,7 @@
 #include "$CurrentDir:JcAspesScripts\\PlayerHelpers.c"
 #include "$CurrentDir:JcAspesScripts\\StringHelpers.c"
 #include "$CurrentDir:JcAspesScripts\\Admin.c"
-#include "$CurrentDir:JcAspesScripts\\Car.c"
+#include "$CurrentDir:JcAspesScripts\\CarSpawner.c"
 #include "$CurrentDir:JcAspesScripts\\CursorAction.c"
 #include "$CurrentDir:JcAspesScripts\\GearSpawner.c"
 #include "$CurrentDir:JcAspesScripts\\GodMode.c"

@@ -32,7 +32,7 @@ class CursorAction
 		}
 	}
 	
-	static private set< Object > COM_GetObjectsAt( vector from, vector to, Object ignore = NULL, float radius = 0.5, Object with = NULL )
+	static private set< Object > COM_GetObjectsAt( vector from, vector to, PlayerBase ignore = NULL, float radius = 0.5, Object with = NULL )
 	{
 		vector contact_pos;
 		vector contact_dir;

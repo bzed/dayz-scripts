@@ -2,8 +2,8 @@ class AdminCommands
 {
 	const string helpMsg = "Available commands: /help /cursor /car /warp /kill /give /gear /ammo /say /info /heal /god /suicide /here /there";
 
-	Admins admins;
-	GodMode godMode;
+	ref Admins admins;
+	ref GodMode godMode;
 	
 	void AdminCommands()
 	{
@@ -153,7 +153,7 @@ class AdminCommands
 		}
 	}
 	
-	private bool PrepareTeleport(TStringArray args, string command, out int distance, out PlayerBase target)
+	private bool PrepareTeleport(PlayerBase player, TStringArray args, string command, out int distance, out PlayerBase target)
 	{
 		// Parse target player name: "...stuff 'input' stuff..." -> "input"
 		string name = StringHelpers.Trim(command, "'");
@@ -162,13 +162,13 @@ class AdminCommands
 		
 		if (!target)
 		{
-			SendPlayerMessage(player, "Could not find target player.");
+			ChatMessage.SendPlayerMessage(player, "Could not find target player.");
 			return false;
 		}
 		
-		if (dist < 1)
+		if (distance < 1)
 		{
-			SendPlayerMessage(player, "Invalid distance.");
+			ChatMessage.SendPlayerMessage(player, "Invalid distance.");
 			return false;
 		}
 		
@@ -179,15 +179,16 @@ class AdminCommands
 	{
 		if ( args.Count() < 2 )
 		{
-			SendPlayerMessage(player, "Syntax: /there '[PLAYER IDENTITY]' (DISTANCE) - Moves self to a player");
-			return false;
+			ChatMessage.SendPlayerMessage(player, "Syntax: /there '[PLAYER IDENTITY]' (DISTANCE) - Moves self to a player");
+			return;
 		}
 		
 		string name;
 		int distance;
+		PlayerBase target;
 		if(PrepareTeleport(player, args, command, distance, target))
 		{
-			TeleportPlayer(player, target, dist);					
+			Teleporter.TeleportPlayer(player, target, distance);					
 		}
 	}
 	
@@ -201,9 +202,10 @@ class AdminCommands
 		
 		string name;
 		int distance;
+		PlayerBase target;
 		if(PrepareTeleport(player, args, command, distance, target))
 		{
-			TeleportPlayer(target, player, dist);
+			Teleporter.TeleportPlayer(target, player, distance);
 		}
 	}
 	
@@ -276,8 +278,7 @@ class AdminCommands
 		
 		if (args.Count() == 2)
 		{
-			arg = args[1];
-			arg.ToLower();
+			string arg = args[1];
 			if (arg.ToInt() == 1)
 			{
 				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(PlayerHelpers.PlayerInfo, 20000, true, player);
@@ -367,7 +368,7 @@ class AdminCommands
 			CarSpawner.Spawn(player, "help");
 			return;
 		}
-		Cars.SpawnCar(player, args[1]);
+		CarSpawner.Spawn(player, args[1]);
 	}
 	
 	private void ExecuteKill(PlayerBase player, TStringArray args)
@@ -377,7 +378,7 @@ class AdminCommands
 			ChatMessage.SendPlayerMessage(player, "Syntax: /kill '[PLAYER IDENTITY]' - Kills a player by given identity, use single quotes around");
 		}
 		
-		arg = StringHelper.Trim(args[1], "'");
+		string arg = StringHelpers.Trim(args[1], "'");
 		
 		if (!PlayerHelpers.KillPlayer(arg))
 		{

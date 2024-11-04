@@ -20,7 +20,7 @@ class GodMode
 				return;
 			}
 			m_gods.Insert(pId);
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.GodMode, 1000, true, player);
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.SetGodMode, 1000, true, player);
 			ChatMessage.SendPlayerMessage(player, "Godmode enabled.");
 		}
 		else
@@ -39,18 +39,18 @@ class GodMode
 			}
 			
 			// Remove godmode function from call queue but add again for remaining gods
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(this.GodMode);
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(this.SetGodMode);
 			
 			foreach (int pid : m_gods)
 			{
 				PlayerBase godPlayer = PlayerHelpers.GetPlayer(pid.ToString(), Identity.PID);
-				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.GodMode, 1000, true, godPlayer);
+				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.SetGodMode, 1000, true, godPlayer);
 			}
 			ChatMessage.SendPlayerMessage(player, "Godmode disabled.");
 		}
 	}
 
-	void GodMode(PlayerBase player)
+	void SetGodMode(PlayerBase player)
 	{
 		if (!player)
 		{

@@ -1,8 +1,8 @@
 class CarSpawner
 {
-	const string helpMsg = "Available types: offroad, olga, olgablack, sarka, gunter, truck, m1025";
+	static const string helpMsg = "Available types: offroad, olga, olgablack, sarka, gunter, truck, m1025";
 	
-	bool Spawn(PlayerBase player, string type)
+	static bool Spawn(PlayerBase player, string type)
 	{
 		type.ToLower();
 		
@@ -49,7 +49,7 @@ class CarSpawner
 		return true;
 	}
 	
-	private void AddBaseAttachementsAndInit(Car car)
+	static private void AddBaseAttachementsAndInit(Car car)
 	{
 		car.GetInventory().CreateAttachment("HeadlightH7");
 		car.GetInventory().CreateAttachment("HeadlightH7");
@@ -64,7 +64,7 @@ class CarSpawner
 		car.GetController().ShiftTo(CarGear.NEUTRAL);
 	}
 	
-	private void AddCarAttachements(Car car)
+	static private void AddCarAttachements(Car car)
 	{
 		car.GetInventory().CreateAttachment("CarRadiator");
 		car.GetInventory().CreateAttachment("CarBattery");
@@ -72,7 +72,7 @@ class CarSpawner
 		AddBaseAttachementsAndInit(car);
 	}
 		
-	private void OffRoad(vector pos, PlayerBase player)
+	static private void OffRoad(vector pos, PlayerBase player)
 	{
 		// Spawn and build the car
 		Car car = Car.Cast(GetGame().CreateObject("OffroadHatchback", pos));
@@ -91,7 +91,7 @@ class CarSpawner
 		ChatMessage.SendPlayerMessage(player, "OffroadHatchback spawned.");
 	}
 	
-	private void OlgaCommon(Car car)
+	static private void OlgaCommon(Car car)
 	{
 		car.GetInventory().CreateAttachment("CivSedanWheel");
 		car.GetInventory().CreateAttachment("CivSedanWheel");
@@ -99,7 +99,7 @@ class CarSpawner
 		car.GetInventory().CreateAttachment("CivSedanWheel");
 	}
 	
-	private void Olga(vector pos, PlayerBase player)
+	static private void Olga(vector pos, PlayerBase player)
 	{
 		// Spawn and build the car
 		Car car = Car.Cast(GetGame().CreateObject("CivilianSedan_Wine", pos));
@@ -117,7 +117,7 @@ class CarSpawner
 		ChatMessage.SendPlayerMessage(player, "CivilianSedan_Wine spawned.");
 	}
 	
-	private void OlgaBlack(vector pos, PlayerBase player)
+	static private void OlgaBlack(vector pos, PlayerBase player)
 	{
 		// Spawn and build the car
 		Car car = Car.Cast(GetGame().CreateObject("CivilianSedan_Black", pos));
@@ -135,7 +135,7 @@ class CarSpawner
 		ChatMessage.SendPlayerMessage(player, "CivSedan_Black spawned.");
 	}
 	
-	private void Sarka(vector pos, PlayerBase player)
+	static private void Sarka(vector pos, PlayerBase player)
 	{
 		// Spawn and build the car
 		Car car = Car.Cast(GetGame().CreateObject("Sedan_02", pos));
@@ -157,7 +157,7 @@ class CarSpawner
 		ChatMessage.SendPlayerMessage(player, "Sedan_02 spawned.");
 	}
 	
-	private void Gunter(vector pos, PlayerBase player)
+	static private void Gunter(vector pos, PlayerBase player)
 	{
 		// Spawn and build the car
 		Car car = Car.Cast(GetGame().CreateObject("Hatchback_02_Black", pos));
@@ -179,14 +179,14 @@ class CarSpawner
 		ChatMessage.SendPlayerMessage(player, "Hatchback_02_Black spawned.");
 	}
 	
-	private void AddTruckAttachements(Car car)
+	static private void AddTruckAttachements(Car car)
 	{
 		car.GetInventory().CreateAttachment("TruckBattery");
 		car.GetInventory().CreateAttachment("SparkPlug");
 		AddBaseAttachementsAndInit(car);
 	}
 	
-	private void Truck(vector pos, PlayerBase player)
+	static private void Truck(vector pos, PlayerBase player)
 	{
 		// Spawn and build the car
 		Car car = Car.Cast(GetGame().CreateObject("Truck_01_Covered", pos));
@@ -214,7 +214,7 @@ class CarSpawner
 		ChatMessage.SendPlayerMessage(player, "Truck_01_Covered spawned.");
 	}
 	
-	private void M1025(vector pos, PlayerBase player)
+	static private void M1025(vector pos, PlayerBase player)
 	{
 		// Spawn and build the car
 		Car car = Car.Cast(GetGame().CreateObject("Offroad_02", pos));

@@ -1,6 +1,6 @@
 class Teleporter
 {
-	void TeleportPlayer(PlayerBase from, PlayerBase to, int distance)
+	static void TeleportPlayer(PlayerBase from, PlayerBase to, int distance)
 	{
 		if (!from)
 		{

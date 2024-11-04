@@ -3,6 +3,8 @@
 #include "PlayerHelpers.c"
 #include "StringHelpers.c"
 #include "GodMod.c"
+#include "Cars.c"
+#include "GearSpawer.c"
 
 class AdminCommands
 {
@@ -99,7 +101,119 @@ class AdminCommands
 			case "/cursor":
 				ExecuteCursorAction(player, args);
 				break;
+			case "/kill":
+				ExecuteKill(player, args);
+				break;
+			case "/car":
+				ExecuteCar(player, args);
+				break;
+			case "/warp":
+				ExecuteWarp(player, args);
+				break;
+			case "/heal":
+				ExecuteHeal(player, args);
+				break;
+			case "/gear":
+				ExecuteGear(player, args);
+				break;
+			case "/ammo":
+				ExecuteAmmo(player, args);
+				break;
+			default:
+				ChatMessage.SendPlayerMessage(player, "Unknown command!");
+			case "/help":
+				ChatMessage.SendPlayerMessage(player, helpMsg);
 		}
+	}
+	
+	private void ExecuteAmmo(PlayerBase player, TStringArray args)
+	{
+		// Args count: 2 <= x <= 3
+		if ( args.Count() < 2 || args.Count() > 3 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /ammo [FOR_WEAPON] (AMOUNT) - Spawn mags and ammo for weapon");
+			GearSpawner.SpawnAmmo(player, "help");
+			return;
+		}
+		
+		if ( args.Count() == 3 && GearSpawner.SpawnAmmo(player, args[1], args[2].ToInt()) )
+		{
+			ChatMessage.SendPlayerMessage(player, "Ammo spawned.");
+		}
+		else if ( args.Count() == 2 && GearSpawner.SpawnAmmo(player, args[1]) )
+		{
+			ChatMessage.SendPlayerMessage(player, "Ammo spawned.");
+		}
+	}
+
+	private void ExecuteGear(PlayerBase player, TStringArray args)
+	{
+		if ( args.Count() != 2 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /gear [TYPE] - Spawn item loadout to self");
+			GearSpawner.SpawnGear(player, "help");
+		}
+		else if (GearSpawner.SpawnGear(player, args[1]))
+		{
+			ChatMessage.SendPlayerMessage(player, "Gear spawned.");
+		}
+	}
+		
+	private void ExecuteHeal(PlayerBase player, TStringArray args)
+	{
+		if ( args.Count() != 2 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /heal '[PLAYER IDENTITY]' - Set all health statuses to max");
+			return;
+		}
+		
+		string name = StringHelpers.Trim(args[1], "'");
+		PlayerHelpers.RestoreHealth(player, name);
+
+	}
+	
+	private void ExecuteWarp(PlayerBase player, TStringArray args)
+	{
+		if ( args.Count() < 3 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /warp [X] [Z] ([Y])- Teleport to [X, 0, Z] or [X, Y, Z]");
+			return;
+		}
+		
+		string pos = args[1] + " " + "0" + " " + args[2];
+		if(args.Count() == 4)
+		{
+			pos = args[1] + " " + args[3] + " " + args[2];
+		}
+		
+		PlayerHelpers.SafeSetPos(player, pos);
+		ChatMessage.SendPlayerMessage(player, "Teleported to: " + pos);
+	}
+	
+	private void ExecuteCar(PlayerBase player, TStringArray args)
+	{
+		if ( args.Count() != 2 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /car [TYPE] - Spawn a vehicle");
+			Car.Spawn(player, "help");
+			return;
+		}
+		Cars.SpawnCar(player, args[1]);
+	}
+	
+	private void ExecuteKill(PlayerBase player, TStringArray args)
+	{
+		if ( args.Count() < 2 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /kill '[PLAYER IDENTITY]' - Kills a player by given identity, use single quotes around");
+		}
+		
+		arg = StringHelper.Trim(args[1], "'");
+		
+		if (!PlayerHelpers.KillPlayer(arg))
+		{
+			ChatMessage.SendPlayerMessage(player, "Error: Could not kill player.");
+		}	
 	}
 
 	private void ExecuteCursorAction(PlayerBase player, TStringArray args)

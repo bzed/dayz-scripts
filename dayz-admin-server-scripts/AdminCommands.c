@@ -167,19 +167,19 @@ class AdminCommands
 	{
 		// Parse target player name: "...stuff 'input' stuff..." -> "input"
 		string name = StringHelpers.Trim(command, "'");
-		int distance = args[args.Count() - 1].ToInt();
-		PlayerBase target = PlayerHelpers.GetPlayer(name, Identity.ANY);
+		distance = args[args.Count() - 1].ToInt();
+		target = PlayerHelpers.GetPlayer(name, Identity.ANY);
 		
 		if (!target)
 		{
-			ChatMessage.SendPlayerMessage(player, "Could not find target player.");
+			ChatMessage.SendPlayerMessage(player, "Could not find target player with name:" + name);
 			return false;
 		}
 		
 		if (distance < 1)
 		{
-			ChatMessage.SendPlayerMessage(player, "Invalid distance.");
-			return false;
+			ChatMessage.SendPlayerMessage(player, "Invalid distance: " + distance + "use default 1");
+			distance = 1;
 		}
 		
 		return true;

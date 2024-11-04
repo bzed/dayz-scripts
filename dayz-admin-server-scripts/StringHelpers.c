@@ -21,7 +21,7 @@ static class StringHelpers
 		}
 	}
 	
-	static string MyTrim(string text, string c)
+	static string Trim(string text, string c)
 	{
 		if (text.Length() < 3)
 		{

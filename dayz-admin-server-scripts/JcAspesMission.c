@@ -1,13 +1,12 @@
 #include "AdminCommands.c"
 
-class JcAspesMission: MissionGameplay //MissionServer
+class JcAspesMission: MissionServer //MissionServer
 {
 	AdminCommands adminCommands;
 	override void OnInit()
 	{
 		super.OnInit();
 		adminCommands = new AdminCommands();
-		//DeveloperFreeCamera.FreeCameraToggle( PlayerBase.Cast( GetGame().GetPlayer() ), false );
 	}
 
 	override void OnEvent(EventType eventTypeId, Param params)

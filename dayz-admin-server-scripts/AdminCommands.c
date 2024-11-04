@@ -104,6 +104,9 @@ class AdminCommands
 			case "/kill":
 				ExecuteKill(player, args);
 				break;
+			case "/suicide":
+				ExecuteSuicide(player, args);
+				break;
 			case "/car":
 				ExecuteCar(player, args);
 				break;
@@ -119,6 +122,21 @@ class AdminCommands
 			case "/ammo":
 				ExecuteAmmo(player, args);
 				break;
+			case "/info":
+				ExecuteInfo(player, args);
+				break;
+			case "/say":
+				ExecuteSay(player, args, command);
+				break;
+			case "/give":
+				ExecuteGive(player, args);
+				break;
+			case "/here":
+				ExecuteHere(player, args, command);
+				break;
+			case "/there":
+				ExecuteThere(player, args, command);
+				break;
 			default:
 				ChatMessage.SendPlayerMessage(player, "Unknown command!");
 			case "/help":
@@ -126,6 +144,165 @@ class AdminCommands
 		}
 	}
 	
+	//DeveloperFreeCamera.FreeCameraToggle( PlayerBase.Cast( GetGame().GetPlayer() ), false );
+
+	private void ExecuteSuicide(PlayerBase player, TStringArray args)
+	{
+		if ( args.Count() != 1 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /suicide - Commit a suicide");
+			return;
+		}
+		
+		// Use SteamID here for sake of certainty
+		if (!PlayerHelpers.KillPlayer( player.GetIdentity().GetPlainId() ))
+		{
+			ChatMessage.SendPlayerMessage(player, "Could not commit suicide.");
+		}
+	}
+	
+	private bool PrepareTeleport(TStringArray args, string command, out int distance, out PlayerBase target)
+	{
+		// Parse target player name: "...stuff 'input' stuff..." -> "input"
+		string name = StringHelpers.Trim(command, "'");
+		int distance = args[args.Count() - 1].ToInt();
+		PlayerBase target = PlayerHelpers.GetPlayer(name, Identity.ANY);
+		
+		if (!target)
+		{
+			SendPlayerMessage(player, "Could not find target player.");
+			return false;
+		}
+		
+		if (dist < 1)
+		{
+			SendPlayerMessage(player, "Invalid distance.");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private void ExecuteThere(PlayerBase player, TStringArray args, string command)
+	{
+		if ( args.Count() < 2 )
+		{
+			SendPlayerMessage(player, "Syntax: /there '[PLAYER IDENTITY]' (DISTANCE) - Moves self to a player");
+			return false;
+		}
+		
+		string name;
+		int distance;
+		if(PrepareTeleport(player, args, command, distance, target))
+		{
+			TeleportPlayer(player, target, dist);					
+		}
+	}
+	
+	private void ExecuteHere(PlayerBase player, TStringArray args, string command)
+	{
+		if ( args.Count() < 2 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /here '[PLAYER IDENTITY]' (DISTANCE) - Moves a player to self");
+			return;
+		}
+		
+		string name;
+		int distance;
+		if(PrepareTeleport(player, args, command, distance, target))
+		{
+			TeleportPlayer(target, player, dist);							}
+		}
+	}
+	
+	private void ExecuteGive(PlayerBase player, TStringArray args)
+	{
+		if ( args.Count() < 2 || args.Count() > 4 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /give [ITEM_NAME] (AMOUNT) (distance) - Spawn item on ground, default amount is 1, default distance is 0");
+			return;
+		}
+		
+		// Set spawn pos near player
+		vector spawnPosition = player.GetPosition();
+		if(args.Count() == 4)
+		{
+			float distance = args[4].ToFloat();
+			spawnPosition[0] = spawnPosition[0] + distance;
+			spawnPosition[1] = GetGame().SurfaceY(spawnPosition[0], spawnPosition[2]);
+			spawnPosition[2] = spawnPosition[2] + distance;
+		}
+		
+		EntityAI item = player.SpawnEntityOnGroundPos(args[1], spawnPosition);
+		
+		if (!item)
+		{
+			ChatMessage.SendPlayerMessage(player, "ERROR: Could not create item.");
+			return;
+		}
+		
+		if ( args.Count() == 3 || args.Count() == 4 )
+		{
+			
+			int itemCount = args[2].ToInt();
+			if (itemCount <= 0)
+			{
+				ChatMessage.SendPlayerMessage(player, "ERROR: Invalid count.");
+				return;
+			}
+			
+			// Spawn the rest of the items if count was specified and valid
+			for (int i = 0; i < itemCount - 1; i++)
+			{
+				player.SpawnEntityOnGroundPos(args[1], spawnPosition);
+			}
+		}
+		ChatMessage.SendPlayerMessage(player, "Item(s) spawned.");
+	}
+	
+	private void ExecuteSay(PlayerBase player, TStringArray args, string command)
+	{
+		if ( args.Count() < 2 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /say [MESSAGE] - Global announcement to all players");
+			return;
+		}
+		
+		// Form the message string from the command text and send to all players
+		string msg = command.Substring( 5, command.Length() - 5 );
+		
+		ChatMessage.SendGlobalMessage(msg);
+	}
+	
+	private void ExecuteInfo(PlayerBase player, TStringArray args)
+	{
+		if ( args.Count() < 1 || args.Count() > 2 )
+		{
+			ChatMessage.SendPlayerMessage(player, "Syntax: /info (0/1) - Get information about players on the server or set continuous info on/off");
+			return;
+		}
+		
+		if (args.Count() == 2)
+		{
+			arg = args[1];
+			arg.ToLower();
+			if (arg.ToInt() == 1)
+			{
+				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(PlayerHelpers.PlayerInfo, 20000, true, player);
+				ChatMessage.SendPlayerMessage(player, "Continuous info mode enabled.");
+			}
+			else if (arg.ToInt() == 0)
+			{
+				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(PlayerHelpers.PlayerInfo);
+				ChatMessage.SendPlayerMessage(player, "Continuous info mode disabled.");
+			}
+		}
+		else
+		{
+			PlayerHelpers.PlayerInfo(player);
+		}
+	}
+		
 	private void ExecuteAmmo(PlayerBase player, TStringArray args)
 	{
 		// Args count: 2 <= x <= 3

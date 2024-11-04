@@ -113,5 +113,54 @@ static class PlayerHelpers
 			p[1] = GetGame().SurfaceY(p[0], p[2]);
 			player.SetPosition(p);
 		}
-	}	
+	}
+	
+	static void PlayerInfo(PlayerBase player)
+	{
+		if (!player)
+		{
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(this.PlayerInfo);
+			return;
+		}
+		
+		// Clear chat history first
+		for (int x = 0; x < 15; x++)
+		{
+			ChatMessage.SendPlayerMessage(player, " ");
+		}
+		
+		ref array<Man> players = new array<Man>;
+		GetGame().GetPlayers( players );
+
+		// Send player count
+		ChatMessage.SendPlayerMessage(player, "Players on server: " + players.Count());
+		
+		// Maximum amount of single line entries that fit in the chat history: 12
+		int max = 10;
+		
+		if ( players.Count() < max )
+		{
+			max = players.Count();
+		}
+		
+		PlayerBase p;
+
+		for ( int i = 0; i < max; ++i )
+		{
+			Class.CastTo(p, players.Get(i));
+			
+			string info = "Player {" + string.ToString(i, false, false, false) + "}";
+			info = info + "  " + "Name: " + p.GetIdentity().GetName();
+			info = info + "  " + "Pos: " + p.GetPosition().ToString();
+			info = info	+ "  " + "Health: " + p.GetHealth("GlobalHealth", "Health");
+			info = info + "  " + "Blood: " + p.GetHealth("GlobalHealth", "Blood");
+			info = info + "  " + "Shock: " + p.GetHealth("GlobalHealth", "Shock");
+			info = info + "  " + "PlayerID: " + p.GetID();
+			info = info + "  " + "SteamID64: " + p.GetIdentity().GetPlainId();
+
+			ChatMessage.SendPlayerMessage(player, info);
+		}
+		
+		ChatMessage.SendPlayerMessage(player, " ");
+	}
 }

@@ -1,11 +1,3 @@
-#include "Admin.c"
-#include "ChatMessages.c"
-#include "PlayerHelpers.c"
-#include "StringHelpers.c"
-#include "GodMod.c"
-#include "Cars.c"
-#include "GearSpawer.c"
-
 class AdminCommands
 {
 	const string helpMsg = "Available commands: /help /cursor /car /warp /kill /give /gear /ammo /say /info /heal /god /suicide /here /there";
@@ -211,7 +203,7 @@ class AdminCommands
 		int distance;
 		if(PrepareTeleport(player, args, command, distance, target))
 		{
-			TeleportPlayer(target, player, dist);							}
+			TeleportPlayer(target, player, dist);
 		}
 	}
 	
@@ -372,7 +364,7 @@ class AdminCommands
 		if ( args.Count() != 2 )
 		{
 			ChatMessage.SendPlayerMessage(player, "Syntax: /car [TYPE] - Spawn a vehicle");
-			Car.Spawn(player, "help");
+			CarSpawner.Spawn(player, "help");
 			return;
 		}
 		Cars.SpawnCar(player, args[1]);

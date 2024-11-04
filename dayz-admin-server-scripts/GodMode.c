@@ -1,5 +1,3 @@
-#include "ChatMessages.c"
-
 class GodMode
 {
 	// Players that have God Mode enabled, listed here
@@ -19,7 +17,7 @@ class GodMode
 			if ( m_gods.Find(pId) != -1 )
 			{
 				ChatMessage.SendPlayerMessage(player, "Player is already god.");
-				return false;
+				return;
 			}
 			m_gods.Insert(pId);
 			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.GodMode, 1000, true, player);
@@ -33,7 +31,7 @@ class GodMode
 			if (godIdx == -1)
 			{
 				ChatMessage.SendPlayerMessage(player, "Player not found in gods.");
-				return false;
+				return;
 			}
 			else
 			{
@@ -45,7 +43,7 @@ class GodMode
 			
 			foreach (int pid : m_gods)
 			{
-				PlayerBase godPlayer = GetPlayer(pid.ToString(), Identity.PID);
+				PlayerBase godPlayer = PlayerHelpers.GetPlayer(pid.ToString(), Identity.PID);
 				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.GodMode, 1000, true, godPlayer);
 			}
 			ChatMessage.SendPlayerMessage(player, "Godmode disabled.");
@@ -72,6 +70,6 @@ class GodMode
 		}
 		
 		// Set all health statuses to maximum
-		RestoreHealth(player);
+		PlayerHelpers.RestoreHealth(player);
 	}
 }

@@ -1,9 +1,8 @@
-#include "ChatMessages.c"
-
-static class GearSpawner()
+class GearSpawner
 {
-	const string helpMsg = "Available types: mil, ghillie, medic, nv, svd, m4, akm, fx45, medieval";
-	
+	static const string helpMsgGear = "Available types: mil, ghillie, medic, nv, svd, m4, akm, fx45, medieval";
+	static const string helpMsgAmmo = "Available ammo types: svd, m4, akm, fx45";
+
 	static bool SpawnGear(PlayerBase player, string type) 
 	{
 		type.ToLower();
@@ -198,20 +197,18 @@ static class GearSpawner()
 				break;
 				
 			default:
-				ChatMessages.SendPlayerMessage(player, "Invalid gear type.");
+				ChatMessage.SendPlayerMessage(player, "Invalid gear type.");
 			case "help":
-				ChatMessages.SendPlayerMessage(player, helpMsg);
+				ChatMessage.SendPlayerMessage(player, helpMsgGear);
 				return false;
 		}
 		
 		return true;
 	}
 	
-	bool SpawnAmmo(PlayerBase player, string type, int amount = 1)
+	static bool SpawnAmmo(PlayerBase player, string type, int amount = 1)
 	{
 		type.ToLower();
-		
-		const string helpMsg = "Available ammo types: svd, m4, akm, fx45";
 
 		vector pos = player.GetPosition();
 		pos[0] = pos[0] + 1;
@@ -244,9 +241,9 @@ static class GearSpawner()
 				break;
 			
 			default:
-				ChatMessages.SendPlayerMessage(player, "Invalid ammo type.");
+				ChatMessage.SendPlayerMessage(player, "Invalid ammo type.");
 			case "help":
-				ChatMessages.SendPlayerMessage(player, helpMsg);
+				ChatMessage.SendPlayerMessage(player, helpMsgAmmo);
 				return false;
 		}
 		

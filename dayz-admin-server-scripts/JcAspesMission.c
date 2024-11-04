@@ -1,5 +1,3 @@
-#include "AdminCommands.c"
-
 class JcAspesMission: MissionServer //MissionServer
 {
 	AdminCommands adminCommands;

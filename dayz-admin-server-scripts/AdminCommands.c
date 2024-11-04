@@ -82,9 +82,6 @@ class AdminCommands
 		TStringArray args = new TStringArray;
 		StringHelpers.Split(command, " ", args);
 		
-		string arg;
-		PlayerBase target;
-		int dist;
 		switch (args[0])
 		{
 			case "/god":

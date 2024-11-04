@@ -1,4 +1,4 @@
-static class ChatMessage
+class ChatMessage
 {
 	static void SendPlayerMessage(PlayerBase player, string message)	
 	{
@@ -33,12 +33,5 @@ static class ChatMessage
 			if ( player )
 				SendPlayerMessage(PlayerBase.Cast(player), message);
 		}
-	}
-	
-	static void SendPlayerMessage(PlayerBase player, string message)	
-	{
-		Param1<string> Msgparam;
-		Msgparam = new Param1<string>(message);
-		GetGame().RPCSingleParam(player, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, player.GetIdentity());
 	}
 }

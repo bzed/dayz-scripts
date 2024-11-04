@@ -1,4 +1,4 @@
-static class CursorAction
+class CursorAction
 {
 	static void Do(PlayerBase player, string action)
 	{

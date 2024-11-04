@@ -1,4 +1,4 @@
-static class StringHelpers
+class StringHelpers
 {
 	static void Split(string text, string delim, out TStringArray list)
 	{

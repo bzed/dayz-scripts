@@ -5,7 +5,7 @@ enum Identity {
 	PID
 }
 
-static class PlayerHelpers
+class PlayerHelpers
 {
 	static bool KillPlayer(string tag)
 	{
@@ -21,13 +21,17 @@ static class PlayerHelpers
 		return true;
 	}
 	
-	void RestoreHealth(PlayerBase playerAsking, string tag)
+	static void RestoreHealth(PlayerBase playerAsking, string tag = "")
 	{
-		PlayerBase player = GetPlayer(tag, Identity.ANY);
-		if(!player)
+		PlayerBase player = playerAsking;
+		if(tag != "")
 		{
-			ChatMessage.SendPlayerMessage(playerAsking, "target '" + name + "' not found.");
-			return;
+			player = GetPlayer(tag, Identity.ANY);
+			if(!player)
+			{
+				ChatMessage.SendPlayerMessage(playerAsking, "target '" + tag + "' not found.");
+				return;
+			}
 		}
 		
 		player.SetHealth("GlobalHealth", "Blood", player.GetMaxHealth("GlobalHealth", "Blood"));
@@ -90,7 +94,7 @@ static class PlayerHelpers
 		return NULL;
 	}
 	
-	void SafeSetPos(PlayerBase player, string pos)
+	static void SafeSetPos(PlayerBase player, string pos)
 	{
 		// Safe conversion
 		vector p = pos.ToVector();
@@ -119,7 +123,7 @@ static class PlayerHelpers
 	{
 		if (!player)
 		{
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(this.PlayerInfo);
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(PlayerHelpers.PlayerInfo);
 			return;
 		}
 		

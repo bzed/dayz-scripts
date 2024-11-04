@@ -2,7 +2,7 @@
 <project>
     <file path="dayz-admin-server-scripts/GodMode.c" />
     <file path="init.c" />
-    <file path="dayz-admin-server-scripts/JcAspesMission.c" />
+    <file path="dayz-admin-server-scripts/MissionBase.c" />
     <file path="dayz-admin-server-scripts/GameInit.c" />
     <file path="dayz-admin-server-scripts/Admin.c" />
     <file path="dayz-admin-server-scripts/AdminCommands.c" />

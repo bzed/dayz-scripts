@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project>
+    <file path="dayz-admin-server-scripts/GodMode.c" />
+    <file path="init.c" />
+    <file path="dayz-admin-server-scripts/JcAspesMission.c" />
+    <file path="dayz-admin-server-scripts/GameInit.c" />
+    <file path="dayz-admin-server-scripts/Admin.c" />
+    <file path="dayz-admin-server-scripts/AdminCommands.c" />
+    <file path="dayz-admin-server-scripts/ChatMessages.c" />
+    <file path="dayz-admin-server-scripts/PlayerHelpers.c" />
+    <file path="dayz-admin-server-scripts/StringHelpers.c" />
+    <file path="dayz-admin-server-scripts/CursorAction.c" />
+    <file path="dayz-admin-server-scripts/Car.c" />
+    <file path="dayz-admin-server-scripts/GearSpawner.c" />
+    <file path="dayz-admin-server-scripts/Teleporter.c" />
+    <file path="init.namalsk.c" />
+</project>

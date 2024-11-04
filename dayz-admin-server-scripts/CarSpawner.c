@@ -86,6 +86,7 @@ class CarSpawner
 		car.GetInventory().CreateAttachment("HatchbackWheel");
 		car.GetInventory().CreateAttachment("HatchbackWheel");
 		car.GetInventory().CreateAttachment("HatchbackWheel");
+		car.GetInventory().CreateAttachment("HatchbackWheel");
 		AddCarAttachements(car);
 
 		ChatMessage.SendPlayerMessage(player, "OffroadHatchback spawned.");
@@ -93,6 +94,7 @@ class CarSpawner
 	
 	static private void OlgaCommon(Car car)
 	{
+		car.GetInventory().CreateAttachment("CivSedanWheel");
 		car.GetInventory().CreateAttachment("CivSedanWheel");
 		car.GetInventory().CreateAttachment("CivSedanWheel");
 		car.GetInventory().CreateAttachment("CivSedanWheel");
@@ -152,6 +154,7 @@ class CarSpawner
 		car.GetInventory().CreateAttachment("Sedan_02_Wheel");
 		car.GetInventory().CreateAttachment("Sedan_02_Wheel");
 		car.GetInventory().CreateAttachment("Sedan_02_Wheel");
+		car.GetInventory().CreateAttachment("Sedan_02_Wheel");
 		AddCarAttachements(car);
 		
 		ChatMessage.SendPlayerMessage(player, "Sedan_02 spawned.");
@@ -170,6 +173,7 @@ class CarSpawner
 		car.GetInventory().CreateAttachment("Hatchback_02_Door_2_1_Black");
 		car.GetInventory().CreateAttachment("Hatchback_02_Door_2_2_Black");
 		
+		car.GetInventory().CreateAttachment("Hatchback_02_Wheel");
 		car.GetInventory().CreateAttachment("Hatchback_02_Wheel");
 		car.GetInventory().CreateAttachment("Hatchback_02_Wheel");
 		car.GetInventory().CreateAttachment("Hatchback_02_Wheel");
@@ -211,6 +215,7 @@ class CarSpawner
 		car.GetInventory().CreateAttachment("Truck_01_WheelDouble");
 		
 		AddTruckAttachements(car);
+		AddBaseAttachementsAndInit(car);
 		ChatMessage.SendPlayerMessage(player, "Truck_01_Covered spawned.");
 	}
 	
@@ -239,6 +244,9 @@ class CarSpawner
 		car.GetInventory().CreateAttachment("Truck_01_WheelDouble");
 
 		car.GetInventory().CreateAttachment("GlowPlug");
+		car.GetInventory().CreateAttachment("CarBattery");
+		
+		AddBaseAttachementsAndInit(car);
 
 		ChatMessage.SendPlayerMessage(player, "Truck_01_Covered spawned.");
 	}

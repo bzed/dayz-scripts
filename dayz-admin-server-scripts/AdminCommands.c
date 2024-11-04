@@ -1,6 +1,6 @@
 class AdminCommands
 {
-	const string helpMsg = "Available commands: /help /cursor /car /warp /kill /give /gear /ammo /say /info /heal /god /suicide /here /there";
+	const string helpMsg = "Available commands: /help /free /cursor /car /warp /kill /give /gear /ammo /say /info /heal /god /suicide /here /there";
 
 	ref Admins admins;
 	ref GodMode godMode;
@@ -126,6 +126,9 @@ class AdminCommands
 			case "/there":
 				ExecuteThere(player, args, command);
 				break;
+			case "/free":
+				ExecuteFreeCam(player);
+				break;
 			default:
 				ChatMessage.SendPlayerMessage(player, "Unknown command!");
 			case "/help":
@@ -133,8 +136,18 @@ class AdminCommands
 		}
 	}
 	
-	//DeveloperFreeCamera.FreeCameraToggle( PlayerBase.Cast( GetGame().GetPlayer() ), false );
-
+	private void ExecuteFreeCam(PlayerBase player)
+	{
+		//https://thedmitri.notion.site/Tutorial-sheet-How-to-use-RPC-d667805b894343cf90d9cf2755aafb0a
+		ChatMessage.SendPlayerMessage(player, "FreeCameraToggle will be called");
+		
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write("FreeCameraToggle");
+		rpc.Send(player, 19770001, true, player.GetIdentity());
+				
+		ChatMessage.SendPlayerMessage(player, "FreeCameraToggle is called");
+	}
+	
 	private void ExecuteSuicide(PlayerBase player, TStringArray args)
 	{
 		if ( args.Count() != 1 )

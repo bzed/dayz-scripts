@@ -14,4 +14,5 @@
     <file path="dayz-admin-server-scripts/GearSpawner.c" />
     <file path="dayz-admin-server-scripts/Teleporter.c" />
     <file path="init.namalsk.c" />
+	<file path="Mod/Scripts/4_World/PlayerBase.c" />
 </project>

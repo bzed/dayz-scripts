@@ -1,4 +1,4 @@
-class JcAspesMission: MissionServer //MissionServer
+class DayzAdminServerScriptsMission: MissionServer //MissionServer
 {
 	ref AdminCommands adminCommands;
 	override void OnInit()

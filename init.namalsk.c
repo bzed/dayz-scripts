@@ -1,15 +1,14 @@
-#include "$CurrentDir:JcAspesScripts\\ChatMessages.c"
-#include "$CurrentDir:JcAspesScripts\\PlayerHelpers.c"
-#include "$CurrentDir:JcAspesScripts\\StringHelpers.c"
-#include "$CurrentDir:JcAspesScripts\\Admin.c"
-#include "$CurrentDir:JcAspesScripts\\CarSpawner.c"
-#include "$CurrentDir:JcAspesScripts\\CursorAction.c"
-#include "$CurrentDir:JcAspesScripts\\GearSpawner.c"
-#include "$CurrentDir:JcAspesScripts\\GodMode.c"
-#include "$CurrentDir:JcAspesScripts\\Teleporter.c"
-#include "$CurrentDir:JcAspesScripts\\AdminCommands.c"
-#include "$CurrentDir:JcAspesScripts\\GameInit.c"
-#include "$CurrentDir:JcAspesScripts\\JcAspesMission.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\ChatMessages.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\PlayerHelpers.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\StringHelpers.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\Admin.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\CarSpawner.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\CursorAction.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\GearSpawner.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\GodMode.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\Teleporter.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\AdminCommands.c"
+#include "$CurrentDir:dayz-admin-server-scripts\\MissionBase.c"
 
 void main()
 {
@@ -47,7 +46,7 @@ Mission CreateCustomMission(string path)
 	return new CustomMission();
 };
 
-class CustomMission: JcAspesMission
+class CustomMission: DayzAdminServerScriptsMission
 {
 	
 	override void OnInit()

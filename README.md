@@ -40,6 +40,10 @@ Once installed, simply copy over the files contained in this repo:
   
   You might need to override the existing init.c file (or keep it as backup and rename it as init.c.old)
 
+  Create a folder named dayz-admin-server-scripts into server root folder so server have access to them and copy content of [dayz-admin-server-scripts](dayz-admin-server-scripts)
+  
+  (e.g. C:\Program Files (x86)\Steam\steamapps\common\DayZServer\)
+
 Configure the server by editing the [serverDZ.cfg](serverDZ.cfg) file to your liking (e.g. server name, password player count, ..)
 
 To access chat commands, you need to add the player's Steam64ID (in decimal format) to the admins.txt file. You can find the user's SteamID using any any Steam profile info webpage, e.g. [SteamFinder](https://www.steamidfinder.com/). E.g. steamID64 (Dec): 76561197960287930
